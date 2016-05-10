@@ -48,13 +48,25 @@ var stateFields = []string{
 	"Srv_f_forced_id",
 }
 
-func (c *ControlSocket) ServerState() ([]*ServerState, error) {
+func (c *ControlSocket) ServerStateAll() ([]*ServerState, error) {
 	cmd := []byte("show servers state\n")
-
 	buf, err := c.roundTrip(cmd)
 	if err != nil {
 		return nil, err
 	}
+	return c.handleServerState(buf)
+}
+
+func (c *ControlSocket) ServerState(backend string) ([]*ServerState, error) {
+	cmd := []byte(fmt.Sprintf("show servers state %s\n", backend))
+	buf, err := c.roundTrip(cmd)
+	if err != nil {
+		return nil, err
+	}
+	return c.handleServerState(buf)
+}
+
+func (c *ControlSocket) handleServerState(buf *bytes.Buffer) ([]*ServerState, error) {
 
 	if buf.Len() == 0 {
 		return nil, fmt.Errorf("zero bytss received")

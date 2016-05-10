@@ -36,12 +36,30 @@ func Test_Sanity(t *testing.T) {
 		}
 	*/
 
-	state, err := ctl.ServerState()
-	if err != nil {
-		fmt.Printf("state %s\n", err)
-	}
+	/*
+		state, err := ctl.ServerStateAll()
+		if err != nil {
+			fmt.Printf("state %s\n", err)
+		}
 
-	for _, st := range state {
-		fmt.Printf("state %+v\n", st)
+		for _, st := range state {
+			fmt.Printf("state %+v\n", st)
+		}
+	*/
+
+	backends, err := ctl.Backends()
+	for _, b := range backends {
+		fmt.Printf("backend %+v\n", b.Name())
+
+		// get the servers for each backend
+
+		servers, err := ctl.Servers(b)
+		if err != nil {
+			fmt.Printf("error: %s\n", err)
+			continue
+		}
+		for _, s := range servers {
+			fmt.Printf(" - %s\n", s.Name())
+		}
 	}
 }
