@@ -116,8 +116,6 @@ Reader:
 			m[k] = v
 		}
 
-		c.log("map %+v", m)
-
 		stat := &Stat{}
 		err = ScanMap(m, stat)
 		if err != nil {
