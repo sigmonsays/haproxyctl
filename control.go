@@ -81,8 +81,6 @@ func (c *ControlSocket) roundTrip(request []byte) (*bytes.Buffer, error) {
 		return nil, err
 	}
 
-	c.log("request sent")
-
 	err = nil
 	res := bytes.NewBuffer(nil)
 	var line []byte
@@ -94,7 +92,6 @@ Reader:
 		if err != nil {
 			break Reader
 		}
-		c.log("read line %d %v", len(line), string(line))
 		_, err = res.Write(line)
 		if err != nil {
 			break Reader

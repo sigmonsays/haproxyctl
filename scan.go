@@ -50,6 +50,10 @@ func ScanMap(m map[string]string, dest interface{}) error {
 			continue
 		}
 
+		if v == "" {
+			continue
+		}
+
 		switch dt.Kind() {
 
 		case reflect.Int:
@@ -65,6 +69,7 @@ func ScanMap(m map[string]string, dest interface{}) error {
 				return fmt.Errorf("%s parameter: parse bool error", field_name)
 			}
 			df.SetBool(b)
+
 		case reflect.String:
 			df.SetString(v)
 

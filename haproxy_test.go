@@ -25,10 +25,12 @@ func Test_Sanity(t *testing.T) {
 		fmt.Printf("Yippie\n")
 	}
 
-	info, err := ctl.Info()
+	stats, err := ctl.Stat()
 	if err != nil {
-		fmt.Printf("Info %s\n", err)
+		fmt.Printf("stat %s\n", err)
 	}
 
-	fmt.Printf("info %+v\n", info)
+	for _, st := range stats {
+		fmt.Printf("stat %+v\n", st)
+	}
 }
