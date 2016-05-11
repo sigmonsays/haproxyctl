@@ -1,4 +1,4 @@
-package haproxy
+package haproxyctl
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func NewServer() *Server {
 	return s
 }
 
-func (s *Server) Name() string {
+func (s *Server) String() string {
 	return fmt.Sprintf("<Server backend=%s name=%s>", s.backend.Name(), s.state.Srv_name)
 }
 

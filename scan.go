@@ -1,4 +1,4 @@
-package haproxy
+package haproxyctl
 
 import (
 	"fmt"

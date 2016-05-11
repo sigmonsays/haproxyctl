@@ -1,4 +1,4 @@
-package haproxy
+package haproxyctl
 
 import (
 	"fmt"
@@ -22,9 +22,15 @@ func Test_Sanity(t *testing.T) {
 
 	ok, err := ctl.Ping()
 	if ok == true {
-		fmt.Printf("Yippie\n")
+		fmt.Printf("ping ok\n")
 	}
 
+	info, err := ctl.Info()
+	if err == nil {
+		fmt.Printf("haproxy version %s\n", info.Version)
+	} else {
+		fmt.Printf("info error %s\n", err)
+	}
 	/*
 		stats, err := ctl.Stat()
 		if err != nil {
@@ -59,7 +65,7 @@ func Test_Sanity(t *testing.T) {
 			continue
 		}
 		for _, s := range servers {
-			fmt.Printf(" - %s\n", s.Name())
+			fmt.Printf(" - %s\n", s.String())
 		}
 	}
 }
